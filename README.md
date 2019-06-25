@@ -45,7 +45,7 @@ $ mvn clean test
 ## Executer le programme (via maven)
 
 ```
-$ mvn compile exec:java -Dexec.mainClass="rpn.CLI" -Dexec.args="4 3 +"
+$ mvn compile exec:java -Dexec.mainClass="rpn.old.CLI" -Dexec.args="4 3 +"
 ```
 
 ## Executer avec le jar
@@ -65,7 +65,7 @@ $ mvn clean package -DskipTests
 Lancer le programme directement (une fois le jar générer):
 
 ```
-$ java -cp target/esgi-rpn-1.0-SNAPSHOT.jar rpn.CLI "4 3 +"
+$ java -cp target/esgi-rpn-1.0-SNAPSHOT.jar rpn.old.CLI "4 3 +"
 ```
 
 # Ressources

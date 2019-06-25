@@ -1,54 +1,39 @@
 package rpn;
 
-import java.util.Deque;
-import java.util.Stack;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CLI {
-    public static void main(String []args) {
+    public static void main(String[] args) {
         String expression = Stream.of(args).collect(Collectors.joining(" "));
-        Stack<String> stack = evaluate(expression);
-        formatStack(stack);
+        evaluate(expression);
     }
 
-    public static Stack<String> evaluate(String expression) {
-        Stack<String> stack = new Stack<>();
-        Tokenizer tokenizer = new Tokenizer();
+    public static double evaluate(String expression) {
 
-        StringTokenizer stringTokenizer = tokenizer.tokenize(expression);
-        Operator operator;
-        Operators op = new Operators();
+        InMemoryBus bus = new InMemoryBus();
+        bus.subscribe("expression", new TokenizerConsumer(bus));
+        Orchestrator orchestrator = new Orchestrator(bus);
+        bus.subscribe("token", orchestrator);
+        bus.subscribe("result", orchestrator);
+        bus.subscribe("+", new PlusOperator(bus));
+        bus.subscribe("-", new MinusOperator(bus));
+        bus.subscribe("*", new TimeOperator(bus));
+        bus.subscribe("/", new DivisionOperator(bus));
+        Final fnl = new Final(bus);
+        bus.subscribe("final", fnl);
 
-        try {
-            while(stringTokenizer.hasMoreTokens()) {
-                String token = stringTokenizer.nextToken();
-                operator = op.findOperator(token);
-                if(operator != null)
-                    stack = operator.calculate(stack);
-                else
-                    stack.push(token);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        bus.publish(new ExpressionMessage(expression + " eoe"));
+        //bus.publish(new ExpressionMessage("4 2 + eoe"));
+        //bus.publish(new ExpressionMessage("17 -5 / eoe"));
 
-        return stack;
-    }
+        // Use this instead if you want to use thread, be careful timeout is not implemented !
+        /*Thread1 t1 = new Thread1(bus, new ExpressionMessage("4 2 + 3 - eoe"));
+        Thread1 t2 = new Thread1(bus, new ExpressionMessage("3 5 8 * 7 + * eoe"));
 
-    public static String formatStack(Stack<String> stack) {
-        Stack<String> invertedStack = new Stack<>();
+        t1.start();
+        t2.start();*/
 
-        while(stack.size() != 0) {
-            invertedStack.push(stack.pop());
-        }
-
-        String result = "";
-        while(invertedStack.size() != 0) {
-            result += invertedStack.pop() + " ";
-        }
-
-        return result.trim();
+        return fnl.getResult();
     }
 }

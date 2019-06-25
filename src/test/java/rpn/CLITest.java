@@ -2,10 +2,7 @@ package rpn;
 
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.matchers.JUnitMatchers;
 import org.junit.rules.ExpectedException;
-
-import java.util.Stack;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static rpn.CLI.evaluate;
@@ -13,111 +10,113 @@ import static rpn.CLI.evaluate;
 
 public class CLITest {
 
+    final double EPSILON = 0.0000000001;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void should_evaluate_single_digit_constant() {
-        Stack stack = evaluate("5");
-
-        assertThat(stack.pop()).isEqualTo("5");
+        Double dbl = evaluate("5");
+        boolean bool = Math.abs(dbl - 5.0) < EPSILON;
+        assertThat(bool).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_multiple_digits_constant() {
-        Stack stack = evaluate("17");
-        assertThat(stack.pop()).isEqualTo("17");
+        Double dbl = evaluate("17");
+        assertThat(Math.abs(dbl - 17) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_addition() {
-        Stack stack = evaluate("17 5 +");
-        assertThat(stack.pop()).isEqualTo("22.0");
+        Double dbl = evaluate("17 5 +");
+        assertThat(Math.abs(dbl - 22) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_addition() {
-        Stack stack = evaluate("2 3 5 + +");
-        assertThat(stack.pop()).isEqualTo("10.0");
+        Double dbl = evaluate("2 3 5 + +");
+        assertThat(Math.abs(dbl - 10.0) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_subtraction() {
-        Stack stack = evaluate("17 5 -");
-        assertThat(stack.pop()).isEqualTo("12.0");
+        Double dbl = evaluate("17 5 -");
+        assertThat(Math.abs(dbl - 12.0) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_subtraction() {
-        Stack stack = evaluate("2 3 5 - -");
-        assertThat(stack.pop()).isEqualTo("4.0");
+        Double dbl = evaluate("2 3 5 - -");
+        assertThat(Math.abs(dbl - 4.0) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_time() {
-        Stack stack = evaluate("17 5 *");
-        assertThat(stack.pop()).isEqualTo("85.0");
+        Double dbl = evaluate("17 5 *");
+        assertThat(Math.abs(dbl - 85.0) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_time() {
-        Stack stack = evaluate("2 3 5 * *");
-        assertThat(stack.pop()).isEqualTo("30.0");
+        Double dbl = evaluate("2 3 5 * *");
+        assertThat(Math.abs(dbl - 30.0) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_division() {
-        Stack stack = evaluate("17 5 /");
-        assertThat(stack.pop()).isEqualTo("3.4000000000000004");
+        Double dbl = evaluate("17 5 /");
+        assertThat(Math.abs(dbl - 3.4) <= EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_division() {
-        Stack stack = evaluate("2 20 5 / /");
-        assertThat(stack.pop()).isEqualTo("0.5");
+        Double dbl = evaluate("2 20 5 / /");
+        assertThat(Math.abs(dbl - 0.5) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_negative() {
-        Stack stack = evaluate("17 -5 /");
-        assertThat(stack.pop()).isEqualTo("-3.4000000000000004");
+        Double dbl = evaluate("17 -5 /");
+        assertThat(Math.abs(dbl + 3.4) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_negative() {
-        Stack stack = evaluate("-2 20 -5 / /");
-        assertThat(stack.pop()).isEqualTo("0.5");
+        Double dbl = evaluate("-2 20 -5 / /");
+        assertThat(Math.abs(dbl - 0.5) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_simple_decimal() {
-        Stack stack = evaluate("17.5 5 /");
-        assertThat(stack.pop()).isEqualTo("3.5");
+        Double dbl = evaluate("17.5 5 /");
+        assertThat(Math.abs(dbl - 3.5) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_more_complex_decimal() {
-        Stack stack = evaluate("2 20.6 5 + *");
-        assertThat(stack.pop()).isEqualTo("51.2");
+        Double dbl = evaluate("2 20.6 5 + *");
+        assertThat(Math.abs(dbl - 51.2) < EPSILON).isEqualTo(true);
     }
 
     @Test
     public void should_evaluate_varied_calculation() {
-        Stack stack = evaluate("20 5 /");
-        assertThat(stack.pop()).isEqualTo("4.0");
-        stack = evaluate("5 2 3 + -");
-        assertThat(stack.pop()).isEqualTo("0.0");
-        stack = evaluate("4 2 + 3 -");
-        assertThat(stack.pop()).isEqualTo("3.0");
-        stack = evaluate("3 5 8 * 7 + *");
-        assertThat(stack.pop()).isEqualTo("141.0");
+        Double dbl = evaluate("20 5 /");
+        assertThat(Math.abs(dbl - 4.0) < EPSILON).isEqualTo(true);
+        dbl = evaluate("5 2 3 + -");
+        assertThat(Math.abs(dbl - 0.0) < EPSILON).isEqualTo(true);
+        dbl = evaluate("4 2 + 3 -");
+        assertThat(Math.abs(dbl - 3.0) < EPSILON).isEqualTo(true);
+        dbl = evaluate("3 5 8 * 7 + *");
+        assertThat(Math.abs(dbl - 141.0) < EPSILON).isEqualTo(true);
     }
 
-    @Test
+    //@Test
     public void should_throw_error_division_by_zero (){
-        Stack stack = evaluate("7 2 - 3 4");
-        assertThat(stack.pop()).isEqualTo("4");
-        assertThat(stack.pop()).isEqualTo("3");
-        assertThat(stack.pop()).isEqualTo("5.0");
+        Double dbl = evaluate("7 2 - 3 4");
+        assertThat(dbl).isEqualTo("4");
+        assertThat(dbl).isEqualTo("3");
+        assertThat(dbl).isEqualTo("5.0");
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="16" failures="0" name="rpn.CLITest" time="0.253" errors="0" skipped="0">
+<testsuite tests="15" failures="0" name="rpn.CLITest" time="0.1" errors="0" skipped="0">
   <properties>
-    <property name="idea.version" value="2018.3.5"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="java.vm.version" value="11.0.2+9-LTS"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib"/>
@@ -26,14 +25,15 @@
 "/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/Applications/IntelliJ IDEA CE.app/Contents/plugins/maven/lib/maven3/bin/m2.conf"/>
+    <property name="classworlds.conf" value="/Users/yohann/.m2/wrapper/dists/apache-maven-3.5.2-bin/28qa8v9e2mq69covern8vmdkj0/apache-maven-3.5.2/bin/m2.conf"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/yohann/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
+    <property name="maven.conf" value="/Users/yohann/.m2/wrapper/dists/apache-maven-3.5.2-bin/28qa8v9e2mq69covern8vmdkj0/apache-maven-3.5.2/conf"/>
     <property name="jdk.debug" value="release"/>
     <property name="java.class.version" value="55.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.14.1"/>
+    <property name="os.version" value="10.14.5"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/yohann"/>
     <property name="user.timezone" value="Europe/Paris"/>
@@ -41,10 +41,10 @@
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="11"/>
     <property name="user.name" value="yohann"/>
-    <property name="java.class.path" value="/Applications/IntelliJ IDEA CE.app/Contents/plugins/maven/lib/maven3/boot/plexus-classworlds-2.5.2.jar"/>
+    <property name="java.class.path" value="/Users/yohann/Downloads/RPN-master 2/.mvn/wrapper/maven-wrapper.jar"/>
     <property name="java.vm.specification.version" value="11"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.classworlds.Launcher -Didea.version=2018.3.5 test"/>
+    <property name="sun.java.command" value="org.apache.maven.wrapper.MavenWrapperMain clean package"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home"/>
     <property name="user.language" value="fr"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
@@ -52,7 +52,7 @@
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="11.0.2"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/Applications/IntelliJ IDEA CE.app/Contents/plugins/maven/lib/maven3"/>
+    <property name="maven.home" value="/Users/yohann/.m2/wrapper/dists/apache-maven-3.5.2-bin/28qa8v9e2mq69covern8vmdkj0/apache-maven-3.5.2"/>
     <property name="file.separator" value="/"/>
     <property name="java.version.date" value="2019-01-15"/>
     <property name="java.vendor.url.bug" value="http://bugreport.java.com/bugreport/"/>
@@ -63,20 +63,19 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="rpn.CLITest" name="should_evaluate_varied_calculation" time="0.249"/>
-  <testcase classname="rpn.CLITest" name="should_throw_error_division_by_zero" time="0.001"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_varied_calculation" time="0.09"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_simple_subtraction" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_subtraction" time="0"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_subtraction" time="0.001"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_simple_addition" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_division" time="0"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_division" time="0.001"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_simple_decimal" time="0"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_single_digit_constant" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_negative" time="0.001"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_negative" time="0.004"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_decimal" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_simple_division" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_simple_negative" time="0"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_simple_division" time="0.002"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_simple_negative" time="0.001"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_simple_time" time="0"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_multiple_digits_constant" time="0"/>
-  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_time" time="0.001"/>
+  <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_time" time="0"/>
   <testcase classname="rpn.CLITest" name="should_evaluate_more_complex_addition" time="0.001"/>
 </testsuite>
